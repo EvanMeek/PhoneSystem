@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/PhoneSystem.dir/main.cpp.o  -o PhoneSystem 

@@ -1,0 +1,3 @@
+/home/evanmeek/CLionProjects/PhoneSystem/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/evanmeek/CLionProjects/PhoneSystem/cmake-build-debug/CMakeFiles/PhoneSystem.dir
+/home/evanmeek/CLionProjects/PhoneSystem/cmake-build-debug/CMakeFiles/edit_cache.dir
