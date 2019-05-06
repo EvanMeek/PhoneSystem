@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#define CLEAR() printf("\033c")
+
 
 using namespace std;
 //联系人
@@ -41,6 +43,9 @@ void removeContact(string contact_name, int contact_phone);
 //修改联系人
 bool updateContact(contact *contact);
 
+//清除所有联系人
+void clearContact();
+
 //全局变量，用于存储所有的联系人
 vector<contact> contacts;
 
@@ -60,7 +65,8 @@ void showMenu() {
     cout << "5.修改联系人" << endl;
     cout << "6.清空联系人" << endl;
     cout << "0.退出联系人" << endl;
-    cout << "********************" << endl;
+    cout << "*************************" << endl;
+    cout << "请选择:";
 }
 
 void exitSystem() {
@@ -76,6 +82,8 @@ void startSystem(vector<contact> contacts) {
     //用户的选择
     int choose = 0;
     while (true) {
+        //清屏
+        system("clear");
         showMenu();
         cin >> choose;
         switch (choose) {
@@ -125,17 +133,7 @@ void startSystem(vector<contact> contacts) {
             }
                 break;
             case 6: {
-                char choose[1];
-                cout<<"你确定要清除所有的联系人信息吗?\t[Y/n]";
-                cin>>choose;
-                if('Y'==choose[0]){
-                    for (int i = 0; i < contacts.size(); ++i) {
-                        contacts.erase(contacts.begin()+i);
-                    }
-                    cout<<"清除成功.";
-                }else{
-                    cout<<"清除失败!"<<endl;
-                }
+                clearContact();
                 cout << "===========================" << endl;
                 break;
             }
@@ -143,6 +141,9 @@ void startSystem(vector<contact> contacts) {
                 exitSystem();
                 break;
         }
+        //实现类似dos命令窗口的"pasue"
+        system("echo 请按任意键继续...");
+        system("read -n 1");
         if (!choose)
             break;
     }
@@ -177,6 +178,7 @@ void showContact() {
         cout << "姓名:" << contacts.at(i).name << "\t性别:" << contacts.at(i).sex << "\t年龄:" << contacts.at(i).age
              << "\t电话:" << contacts.at(i).phone << "\t地址:" << contacts.at(i).address << endl;
     }
+    return;
 }
 
 /**
@@ -238,6 +240,7 @@ contact *findContact(string contact_name, int phone) {
         if (!contacts.at(i).name.compare(contact_name) && contacts.at(i).phone == phone)
             return &contacts.at(i);
     }
+    return NULL;
 }
 
 /**
@@ -276,4 +279,21 @@ bool updateContact(contact *contact) {
     }
     cout << "修改失败!";
     return false;
+}
+
+/**
+ * 清除所有联系人
+ */
+void clearContact() {
+    char choose[1];
+    cout << "你确定要清除所有的联系人信息吗?\t[Y/n]";
+    cin >> choose;
+    if ('Y' == choose[0]) {
+        for (int i = 0; i < contacts.size(); ++i) {
+            contacts.erase(contacts.begin() + i);
+        }
+        cout << "清除成功.";
+    } else {
+        cout << "清除失败!" << endl;
+    }
 }
